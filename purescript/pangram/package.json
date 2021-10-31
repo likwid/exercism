@@ -1,0 +1,34 @@
+{
+  "name": "exercism-purescript-pangram",
+  "version": "0.0.2",
+  "scripts": {
+    "test": "spago test",
+    "test:extern": "mocha 'dist/**/*.spec.js' --reporter dot",
+    "format": "purty --write src; purty --write test",
+    "build": "spago build --purs-args '--stash --censor-codes=MissingTypeDeclaration --codegen sourcemaps'",
+    "clean": "rm -rf .cache output dist/standalone*.js",
+    "standalone": "yarn build && parcel build --public-url ./ --no-cache --no-minify entry.js -o dist/index.js",
+    "standalone:min": "yarn standalone && yarn compress",
+    "compress": "terser -m -c --source-map \"content='./dist/index.js.map'\" --source-map \"url=min.js.map\" dist/index.js -o dist/min.js",
+    "sloc": "find src test -name '*.purs' | xargs cat | wc -l"
+  },
+  "files": [
+    "src",
+    "output",
+    "dist"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-mocha": "^8.0.0",
+    "mocha": "^8.2.1",
+    "parcel": "^1.12.4",
+    "purescript": "^0.13.8",
+    "purescript-psa": "^0.8.0",
+    "purty": "^6.3.0",
+    "sinon": "^9.2.2",
+    "spago": "^0.17.0"
+  }
+}
